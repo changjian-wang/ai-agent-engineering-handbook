@@ -1,11 +1,7 @@
 name: Step 2
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - index.md
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,6 +13,7 @@ env:
 
 jobs:
   find_exercise:
+    if: ${{ false }}
     name: Find Exercise Issue
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.6.0
 

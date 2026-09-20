@@ -1,0 +1,182 @@
+:root {
+  color-scheme: light;
+  --paper: #ffffff;
+  --canvas: #f5f7f6;
+  --ink: #252e2a;
+  --muted: #596760;
+  --line: #dce3df;
+  --accent: #176457;
+  --accent-soft: #eaf3ef;
+  --warm: #a64630;
+  font-family: "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 1.5rem; }
+body { margin: 0; color: var(--ink); background: var(--paper); }
+a { color: var(--accent); text-underline-offset: 0.22em; }
+a:hover { color: var(--warm); }
+a:focus-visible, summary:focus-visible, .table-scroll:focus-visible {
+  outline: 3px solid var(--warm);
+  outline-offset: 4px;
+}
+[hidden] { display: none !important; }
+
+.skip-link {
+  position: absolute;
+  inset: 1rem auto auto 1rem;
+  z-index: 10;
+  padding: 0.75rem;
+  background: var(--paper);
+  transform: translateY(-180%);
+}
+.skip-link:focus { transform: translateY(0); }
+
+.masthead {
+  border-top: 4px solid var(--accent);
+  border-bottom: 1px solid var(--line);
+  background-color: var(--canvas);
+  background-image: repeating-linear-gradient(90deg, transparent 0, transparent 47px, #e9eeeb 47px, #e9eeeb 48px);
+}
+.masthead-inner, .reading-layout, .site-footer {
+  width: min(100% - 3rem, 1240px);
+  margin-inline: auto;
+}
+.masthead-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding-block: 1.3rem;
+}
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+.wordmark strong { font-size: 1.05rem; font-weight: 650; }
+.wordmark-symbol {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font: 700 1.5rem Georgia, serif;
+}
+.repository-link { font-size: 0.9rem; font-weight: 600; }
+.reading-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 3.75rem;
+  align-items: start;
+  padding-block: 2.75rem 4rem;
+}
+.sidebar { position: sticky; top: 1.5rem; max-height: calc(100vh - 3rem); overflow-y: auto; }
+.navigation-label {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 0.8rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.navigation-label span { color: var(--warm); }
+.site-navigation { display: grid; gap: 0.25rem; }
+.site-navigation a {
+  padding: 0.65rem 0.75rem;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.925rem;
+}
+.site-navigation a:hover { background: var(--canvas); color: var(--ink); }
+.site-navigation a[aria-current] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+.page-navigation { margin-top: 1.7rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.page-navigation summary { cursor: pointer; color: var(--muted); font-size: 0.85rem; }
+.page-navigation ol { list-style: none; margin: 0.85rem 0 0; padding: 0; }
+.page-navigation li { margin-block: 0.65rem; font-size: 0.8rem; line-height: 1.6; }
+.page-navigation a { color: var(--muted); text-decoration: none; }
+.page-navigation a:hover { color: var(--accent); text-decoration: underline; }
+main { min-width: 0; }
+.prose { max-width: 880px; font-size: 1rem; line-height: 1.95; overflow-wrap: anywhere; }
+.document-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  margin-bottom: 1.1rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.document-meta span:first-child { color: var(--warm); }
+.prose h1, .prose h2 {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", Georgia, serif;
+  color: var(--ink);
+  line-height: 1.45;
+}
+.prose h1 { margin: 0 0 1.25rem; font-size: 2rem; font-weight: 700; }
+.prose h2 { margin: 2.6rem 0 1.1rem; padding-bottom: 0.65rem; border-bottom: 1px solid var(--line); font-size: 1.4rem; }
+.prose h3 { margin: 1.8rem 0 0.7rem; font-size: 1.1rem; line-height: 1.65; }
+.prose p { margin: 1rem 0; }
+.prose ul, .prose ol { padding-left: 1.5rem; }
+.prose li { padding-left: 0.15rem; margin-block: 0.45rem; }
+.prose strong { font-weight: 650; }
+.prose blockquote { margin-inline: 0; padding: 0.3rem 1rem; border-left: 3px solid var(--accent); background: var(--canvas); }
+.prose img { display: block; max-width: 100%; height: auto; margin: 1.5rem auto 0.5rem; }
+.prose figure { margin: 1.75rem 0; }
+.prose figcaption { color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
+.prose code { padding: 0.1em 0.3em; background: var(--canvas); font-family: "Cascadia Code", "Consolas", monospace; font-size: 0.9em; }
+.prose pre { overflow-x: auto; padding: 1rem; background: var(--canvas); }
+.prose pre code { padding: 0; }
+.table-scroll { overflow-x: auto; margin-block: 1.25rem; border: 1px solid var(--line); }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.9rem; line-height: 1.8; text-align: left; }
+.prose th, .prose td { padding: 0.75rem 0.8rem; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose th { background: var(--canvas); font-weight: 600; }
+.prose tr:last-child td { border-bottom: 0; }
+.prose td:first-child { font-weight: 500; }
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-block: 1.5rem 2rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 900px) {
+  .reading-layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 1.5rem; }
+  .sidebar { position: static; max-height: none; overflow: visible; }
+  .site-navigation { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page-navigation { margin-top: 1rem; padding-top: 1rem; }
+  .page-navigation ol { columns: 2; column-gap: 1.5rem; }
+  .page-navigation li { break-inside: avoid; }
+}
+
+@media (max-width: 540px) {
+  .masthead-inner, .reading-layout, .site-footer { width: calc(100% - 2rem); }
+  .masthead-inner { padding-block: 1rem; }
+  .page-navigation ol { columns: 1; }
+  .table-scroll table { min-width: 34rem; }
+  .prose h2 { margin-top: 2rem; }
+}
+
+@media print {
+  .masthead, .sidebar, .site-footer, .skip-link { display: none; }
+  .reading-layout { display: block; width: 100%; padding: 0; }
+  .prose { max-width: none; font-size: 11pt; }
+  .table-scroll { overflow: visible; }
+  .table-scroll table { min-width: 0; }
+  a { color: inherit; }
+}

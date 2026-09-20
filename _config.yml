@@ -1,0 +1,11 @@
+title: AI 与 Agent 工程手册
+description: 从 AI 基础、模型原理与训练，到推理、评测和智能体工程。
+url: https://changjian-wang.github.io
+baseurl: /ai-agent-engineering-handbook
+lang: zh-CN
+timezone: Asia/Shanghai
+markdown: kramdown
+highlighter: rouge
+strict_front_matter: true
+kramdown: { input: GFM, hard_wrap: false }
+exclude: [README.md, LICENSE, Gemfile, Gemfile.lock, scripts, test-results, vendor]

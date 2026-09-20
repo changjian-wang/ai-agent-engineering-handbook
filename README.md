@@ -1,16 +1,63 @@
-# GitHub Pages
+# AI 与 Agent 工程手册
 
-<img src="https://octodex.github.com/images/Professortocat_v2.png" align="right" height="200px" />
+以 AI 基础与大模型原理为主线，系统整理训练、推理、评测和应用知识；Agent 独立并行学习。内容同时服务理解、实践与面试，不以框架调用代替原理。
 
-Hey changjian-wang!
+站点地址：[AI 与 Agent 工程手册](https://changjian-wang.github.io/ai-agent-engineering-handbook/)（首次成功部署后生效）。
 
-Mona here. I'm done preparing your exercise. Hope you enjoy! 💚
+## 当前内容
 
-Remember, it's self-paced so feel free to take a break! ☕️
+- [学习首页](index.md)：AI 优先的学习顺序和真实章节状态。
+- [完整知识目录](roadmap.md)：M00–M13，共 14 个模块及其验收目标。
+- [原文覆盖与资料核验](coverage.md)：34 条可见原文知识点、9 项明确补充内容及资料缺口。
+- [第一章：AI、机器学习、深度学习与大模型的关系](chapters/00-ai-foundations.md)：概念、原创示意图、练习答案、面试自测和一手来源。
 
-[![](https://img.shields.io/badge/Go%20to%20Exercise-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/changjian-wang/ai-agent-engineering-handbook/issues/1)
+除第一章外，专题正文尚在规划中。没有取得微信标题所称的完整 48 页资料，不宣称逐页复现或已经完成全部知识整理。
 
----
+## 本地构建与预览
 
-&copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+站点使用 Jekyll 4.4、Ruby 3.3 和锁定的 Gem 依赖。校验器通过 Nokogiri 解析生成的 HTML，检查站内路径、锚点、图片、页面结构和发布文件边界，不用正则代替 HTML 解析。
+
+已有 Ruby 3.3 环境时，在仓库根目录运行：
+
+```sh
+bundle install
+bundle exec jekyll build --trace
+bundle exec ruby scripts/check_site.rb
+bundle exec jekyll serve --host 127.0.0.1 --port 4174
+```
+
+预览地址：<http://127.0.0.1:4174/ai-agent-engineering-handbook/>。
+
+Windows 没有 Ruby 时，可用已经启动的 Docker Desktop，在 PowerShell 中执行：
+
+```powershell
+Set-Location C:\github\ai-agent-engineering-handbook
+docker run --rm --mount "type=bind,source=$PWD,target=/site" --mount type=volume,source=ai-handbook-bundle,target=/usr/local/bundle --workdir /site ruby:3.3 bundle install
+docker run --rm --mount "type=bind,source=$PWD,target=/site" --mount type=volume,source=ai-handbook-bundle,target=/usr/local/bundle --workdir /site ruby:3.3 bundle exec jekyll build --trace
+docker run --rm --mount "type=bind,source=$PWD,target=/site" --mount type=volume,source=ai-handbook-bundle,target=/usr/local/bundle --workdir /site ruby:3.3 bundle exec ruby scripts/check_site.rb
+docker run --rm -p 127.0.0.1:4174:4000 --mount "type=bind,source=$PWD,target=/site" --mount type=volume,source=ai-handbook-bundle,target=/usr/local/bundle --workdir /site ruby:3.3 bundle exec jekyll serve --host 0.0.0.0 --port 4000 --no-watch
+```
+
+Docker 的 `--no-watch` 预览不会自动重建。修改正文后重新执行构建命令，再刷新页面；若 4174 端口被占用，换一个本地端口。
+
+概念图是本仓库原创 PNG。可在 Windows PowerShell 中运行 [生成脚本](scripts/render-diagram.ps1) 重新生成；日常构建直接使用已提交的图片，不需要 Windows 图形库。
+
+## 发布
+
+[发布工作流](.github/workflows/deploy-pages.yml)在 Pull Request 上构建和校验；推送到 `main` 或在 `main` 手动运行时，校验通过后才部署。
+
+首次发布需将仓库 Settings → Pages → Source 设为 **GitHub Actions**。只上传生成的站点，不上传依赖、脚本或仓库配置。线上 URL 的项目路径由 [站点配置](_config.yml)中的 `baseurl` 决定。
+
+GitHub Skills 原课程流程保留作历史参考，但已移除自动触发并禁用入口任务，避免重写首页或仓库说明。它们不是本站发布入口。
+
+## 内容维护
+
+1. 先把知识点加入覆盖表和目录，明确来自原文还是本手册补充。
+2. 新章节放在 `chapters/`，使用 `layout`、`title`、`description`、`permalink`、`chapter`、`last_verified` 元数据。
+3. 正文包括核心问题、先修知识、原理、例子、边界、误区、自测与参考答案。
+4. 关键判断优先查论文、官方文档或官方实现；记录论文版本或页面核验日期。
+5. 未运行的实验、未核实的结论和规划章节明确标记，不编造服务响应、评测数字或完成状态。
+6. 构建、链接、图片及桌面/手机阅读检查通过后，再更新章节状态并发布。
+
+仓库原有 [LICENSE](LICENSE) 保留。外部论文、文档及原文图片仍遵守各自许可，引用链接不等于获得整套转载授权。
 

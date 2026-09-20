@@ -1,9 +1,7 @@
 name: Step 0 # Start Exercise
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,8 +13,7 @@ env:
 
 jobs:
   start_exercise:
-    if: |
-      !github.event.repository.is_template
+    if: ${{ false }}
     name: Start Exercise
     uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.6.0
     with:
