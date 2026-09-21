@@ -1,6 +1,19 @@
 const article = document.querySelector('.prose');
 
 if (article) {
+  if (typeof window.renderMathInElement === 'function') {
+    window.renderMathInElement(article, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '\\[', right: '\\]', display: true },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '$', right: '$', display: false },
+      ],
+      throwOnError: false,
+      trust: false,
+    });
+  }
+
   article.querySelectorAll('table').forEach((table, index) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'table-scroll';

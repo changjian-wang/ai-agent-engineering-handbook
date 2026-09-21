@@ -8,4 +8,4 @@ markdown: kramdown
 highlighter: rouge
 strict_front_matter: true
 kramdown: { input: GFM, hard_wrap: false }
-exclude: [README.md, LICENSE, Gemfile, Gemfile.lock, scripts, test-results, vendor]
+exclude: [README.md, LICENSE, Gemfile, Gemfile.lock, scripts, examples, .venv, .vscode, test-results, vendor]

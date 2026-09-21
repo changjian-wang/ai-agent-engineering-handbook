@@ -10,8 +10,9 @@
 - [完整知识目录](roadmap.md)：M00–M13，共 14 个模块及其验收目标。
 - [原文覆盖与资料核验](coverage.md)：34 条可见原文知识点、9 项明确补充内容及资料缺口。
 - [第一章：AI、机器学习、深度学习与大模型的关系](chapters/00-ai-foundations.md)：概念、原创示意图、练习答案、面试自测和一手来源。
+- [M01：数学与编程基础](chapters/01-math-and-programming.md)：Python、张量、线性代数、梯度、概率与信息论，附 [CPU 实验与 11 个测试](examples/m01/math_basics.py)。
 
-除第一章外，专题正文尚在规划中。没有取得微信标题所称的完整 48 页资料，不宣称逐页复现或已经完成全部知识整理。
+M00、M01 已成稿，M02–M13 正文仍在规划中。没有取得微信标题所称的完整 48 页资料，不宣称逐页复现或已经完成全部知识整理。
 
 ## 本地构建与预览
 
@@ -44,7 +45,11 @@ Docker 的 `--no-watch` 预览不会自动重建。修改正文后重新执行�
 
 ## 发布
 
-[发布工作流](.github/workflows/deploy-pages.yml)在 Pull Request 上构建和校验；推送到 `main` 或在 `main` 手动运行时，校验通过后才部署。
+M01 实验在 Python 3.11 虚拟环境中安装 [固定直接依赖](examples/m01/requirements.txt)，通过 `python examples/m01/math_basics.py` 运行。Windows/Linux 的 CPU 安装命令、真实验证记录与数据范围见 [M01 正文](chapters/01-math-and-programming.md)。实验源码、虚拟环境和缓存不会进入 Pages 产物。
+
+数学章节通过 `math: true` 启用 KaTeX 0.18.7，使用带完整性校验的固定版本 CDN 资源；其他页面不加载。CDN 不可访问时公式可能保留 TeX 文本，正文与实验本身不依赖该网络服务。
+
+[发布工作流](.github/workflows/deploy-pages.yml)在 Pull Request 上运行 CPU 实验、构建和校验；推送到 `main` 或在 `main` 手动运行时，实验与站点校验均通过后才部署。
 
 首次发布需将仓库 Settings → Pages → Source 设为 **GitHub Actions**。只上传生成的站点，不上传依赖、脚本或仓库配置。线上 URL 的项目路径由 [站点配置](_config.yml)中的 `baseurl` 决定。
 

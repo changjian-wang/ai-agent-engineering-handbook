@@ -9,7 +9,7 @@ permalink: /roadmap/
 
 本目录定义本版手册的覆盖范围，而不是对整个 AI 学科的穷尽。主线先建立 AI 与机器学习基础，再进入大模型；Agent 独立并行，不压缩原理与训练知识。
 
-**正文状态：**M00 [第一章]({{ '/chapters/ai-foundations/' | relative_url }})已成稿，M01–M13 规划中。列出知识点不等于已有正文、代码或验证结果。
+**正文状态：**[M00 · AI 全景]({{ '/chapters/ai-foundations/' | relative_url }})与 [M01 · 数学与编程]({{ '/chapters/math-and-programming/' | relative_url }})已成稿，M01 基础实验已验证；M02–M13 规划中。列出知识点不等于已有正文、代码或验证结果。
 
 原文线索与补充内容的区别见[覆盖与资料核验表]({{ '/coverage/' | relative_url }})。
 
@@ -36,6 +36,8 @@ M12 可以同步学习；涉及注意力、训练、检索和评测的问题，�
 **验收：**能解释一个文本分类器、聊天模型和带工具的助手分别包含哪些环节。
 
 ## M01. 数学与编程 {#m01}
+
+[阅读正文与运行实验]({{ '/chapters/math-and-programming/' | relative_url }})
 
 **目标：**能读懂后续公式与张量运算，不把记忆术语当成掌握。
 

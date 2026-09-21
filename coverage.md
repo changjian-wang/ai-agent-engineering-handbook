@@ -3,7 +3,7 @@ layout: default
 title: 原文覆盖与资料核验
 description: 原微信文章可见知识点、手册模块、待核问题和补充内容的对应关系。
 permalink: /coverage/
-last_verified: "2026-09-20"
+last_verified: "2026-09-21"
 ---
 
 # 原文覆盖与资料核验
@@ -32,15 +32,15 @@ last_verified: "2026-09-20"
 
 ## 原文知识点映射
 
-下表按可见内容归并条目，同一行可以包含相互关联的子知识点。对应位置均链接到[完整目录]({{ '/roadmap/' | relative_url }})，不是尚未编写的章节。
+下表按可见内容归并条目，同一行可以包含相互关联的子知识点。已成稿的基础条目链接到正文，其余指向[完整目录]({{ '/roadmap/' | relative_url }})，不冒充已完成章节。
 
-**共同状态：**以下 WX 条目均已登记目录，专题正文待编写、技术结论待逐章核验。第一章只提供概念入口，不计作这些专题已经完成。
+**当前状态：**WX01–WX03 已有 M01 基础正文与已运行的数学练习，不代表覆盖完整的 Python/PyTorch API 或大学数学课程。其余专题仍待编写与逐章核验；WX21 中仅 KL 等先修概念已在 M01 讲解，预训练部分尚未完成。原始图片的可见范围核验仍为 2026-09-20。
 
 | 编号 | 来源 | 可见知识点 | 手册位置 |
 | --- | --- | --- | --- |
-| WX01 | R1 | Python 编程 | [M01]({{ '/roadmap/' | relative_url }}#m01) |
-| WX02 | R1 | PyTorch | [M01]({{ '/roadmap/' | relative_url }}#m01) |
-| WX03 | R1 | 线性代数、概率论、微积分、梯度与矩阵运算 | [M01]({{ '/roadmap/' | relative_url }}#m01) |
+| WX01 | R1 | Python 编程 | [M01 · Python 基础]({{ '/chapters/math-and-programming/' | relative_url }}#python)，基础入门已成稿 |
+| WX02 | R1 | PyTorch | [M01 · 张量]({{ '/chapters/math-and-programming/' | relative_url }}#tensors)、[自动求导]({{ '/chapters/math-and-programming/' | relative_url }}#calculus)，基础实验已验证 |
+| WX03 | R1 | 线性代数、概率论、微积分、梯度与矩阵运算 | [M01 正文与练习]({{ '/chapters/math-and-programming/' | relative_url }})，基础入门已成稿 |
 | WX04 | R1 | CNN、卷积核、特征提取、感受野、池化 | [M03]({{ '/roadmap/' | relative_url }}#m03) |
 | WX05 | R1 | 神经元、隐藏层、残差、激活函数 | [M03]({{ '/roadmap/' | relative_url }}#m03) |
 | WX06 | R1 | RNN、循环结构、时间步、GRU、LSTM | [M03]({{ '/roadmap/' | relative_url }}#m03) |
@@ -58,7 +58,7 @@ last_verified: "2026-09-20"
 | WX18 | R2 | 张量并行 TP、流水线并行 PP、节点内/间通信 | [M06]({{ '/roadmap/' | relative_url }}#m06) |
 | WX19 | R2 | FlashAttention-2/3、IO 感知计算优化 | [M06]({{ '/roadmap/' | relative_url }}#m06) |
 | WX20 | R2 | Warmup、Cosine 衰减、梯度裁剪 | [M06]({{ '/roadmap/' | relative_url }}#m06) |
-| WX21 | R2 | Loss spike、KL 散度、BF16/FP16、checkpoint | [M01]({{ '/roadmap/' | relative_url }}#m01)、[M06]({{ '/roadmap/' | relative_url }}#m06) |
+| WX21 | R2 | Loss spike、KL 散度、BF16/FP16、checkpoint | [M01 · KL 定义]({{ '/chapters/math-and-programming/' | relative_url }}#information)已成稿；[M06]({{ '/roadmap/' | relative_url }}#m06)仍规划中 |
 | WX22 | R2 | Adam、AdamW | [M03]({{ '/roadmap/' | relative_url }}#m03)、[M06]({{ '/roadmap/' | relative_url }}#m06) |
 | WX23 | R3 | SFT、指令数据、全量微调 | [M07]({{ '/roadmap/' | relative_url }}#m07) |
 | WX24 | R3 | PEFT、LoRA、QLoRA | [M07]({{ '/roadmap/' | relative_url }}#m07) |

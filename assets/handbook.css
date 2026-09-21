@@ -138,6 +138,9 @@ main { min-width: 0; }
 .prose code { padding: 0.1em 0.3em; background: var(--canvas); font-family: "Cascadia Code", "Consolas", monospace; font-size: 0.9em; }
 .prose pre { overflow-x: auto; padding: 1rem; background: var(--canvas); }
 .prose pre code { padding: 0; }
+.prose .katex { font-size: 1.08em; }
+.prose .katex-display { overflow-x: auto; overflow-y: hidden; padding-block: 0.5rem; }
+.prose .katex-display > .katex { text-align: left; }
 .table-scroll { overflow-x: auto; margin-block: 1.25rem; border: 1px solid var(--line); }
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.9rem; line-height: 1.8; text-align: left; }
 .prose th, .prose td { padding: 0.75rem 0.8rem; vertical-align: top; border-bottom: 1px solid var(--line); }

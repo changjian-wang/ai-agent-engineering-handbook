@@ -10,7 +10,7 @@ origin = config.fetch("url")
 site_host = URI(origin).host
 failures = []
 references = 0
-required_pages = %w[index.html roadmap/index.html coverage/index.html chapters/ai-foundations/index.html]
+required_pages = %w[index.html roadmap/index.html coverage/index.html chapters/ai-foundations/index.html chapters/math-and-programming/index.html]
 
 Dir.glob(".github/workflows/*.yml").each do |workflow_path|
   workflow = YAML.safe_load_file(workflow_path)
@@ -83,7 +83,7 @@ documents.each do |path, document|
   end
 end
 
-%w[Gemfile Gemfile.lock README.md scripts vendor .git .github].each do |private_path|
+%w[Gemfile Gemfile.lock README.md scripts examples .venv .vscode vendor .git .github].each do |private_path|
   failures << "Build-only file published: #{private_path}" if root.join(private_path).exist?
 end
 
@@ -93,6 +93,14 @@ if coverage
   expected = (1..34).map { |number| format("WX%02d", number) }
   actual = entries.grep(/\AWX\d+\z/)
   failures << "Source coverage entries are missing or duplicated" unless actual.sort == expected
+end
+
+math_chapter = documents[root.join("chapters/math-and-programming/index.html")]
+if math_chapter
+  sections = %w[scope python tensors linear-algebra calculus probability information engineering lab exercises interview next references]
+  rendered_sections = math_chapter.css("main h2[id]").map { |heading| heading["id"] }
+  failures << "M01 sections are missing or rendered as code" unless rendered_sections == sections
+  failures << "M01 Python examples did not render as code" unless math_chapter.css("div.language-python pre code").length == 3
 end
 
 if failures.any?

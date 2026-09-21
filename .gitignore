@@ -43,4 +43,8 @@ _site/
 .bundle/
 vendor/
 test-results/
+.venv/
+.vscode/settings.json
+__pycache__/
+*.py[cod]
 

@@ -15,6 +15,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  examples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: examples/m01/requirements.txt
+      - name: Install CPU exercise dependencies
+        run: python -m pip install --index-url https://download.pytorch.org/whl/cpu -r examples/m01/requirements.txt
+      - name: Test M01 examples
+        run: python examples/m01/math_basics.py
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -40,7 +59,7 @@ jobs:
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: build
+    needs: [build, examples]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
