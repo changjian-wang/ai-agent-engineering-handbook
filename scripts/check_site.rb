@@ -90,9 +90,29 @@ end
 coverage = documents[root.join("coverage/index.html")]
 if coverage
   entries = coverage.css("td").map(&:text)
-  expected = (1..34).map { |number| format("WX%02d", number) }
+  expected = (1..45).map { |number| format("WX%02d", number) }
   actual = entries.grep(/\AWX\d+\z/)
   failures << "Source coverage entries are missing or duplicated" unless actual.sort == expected
+end
+
+intro_chapter = documents[root.join("chapters/ai-foundations/index.html")]
+if intro_chapter
+  sections = %w[llm-basics pretraining token-basics architectures pretrained-models attention-mask causal-prefix misconceptions interview references]
+  rendered_sections = intro_chapter.css("main h2[id]").map { |heading| heading["id"] }
+  failures << "M00 foundation sections are missing or out of order" unless rendered_sections == sections
+  failures << "Rejected delivery pilot remains in M00" if intro_chapter.at_css("#delivery-records, #delivery-candidates")
+  %w[causal-mask prefix-mask].each do |identifier|
+    rows = intro_chapter.css("##{identifier} tbody tr").map do |row|
+      row.css("td").drop(1).map { |cell| Integer(cell.text, exception: false) }
+    end
+    expected = Array.new(4) do |row_index|
+      Array.new(4) do |column_index|
+        visible = column_index <= row_index || (identifier == "prefix-mask" && row_index < 2 && column_index < 2)
+        visible ? 1 : 0
+      end
+    end
+    failures << "M00 #{identifier} contains incorrect attention visibility" unless rows == expected
+  end
 end
 
 math_chapter = documents[root.join("chapters/math-and-programming/index.html")]
@@ -100,7 +120,13 @@ if math_chapter
   sections = %w[scope python tensors linear-algebra calculus probability information engineering lab exercises interview next references]
   rendered_sections = math_chapter.css("main h2[id]").map { |heading| heading["id"] }
   failures << "M01 sections are missing or rendered as code" unless rendered_sections == sections
-  failures << "M01 Python examples did not render as code" unless math_chapter.css("div.language-python pre code").length == 3
+  failures << "M01 Python examples did not render as code" unless math_chapter.css("div.language-python pre code").length == 4
+  %w[linear-extensions gradient-check information-reference engineering-reference].each do |identifier|
+    disclosure = math_chapter.at_css("details##{identifier}")
+    unless disclosure && disclosure.at_css("summary") && !disclosure.key?("open")
+      failures << "M01 #{identifier} must remain optional and collapsed"
+    end
+  end
 end
 
 if failures.any?

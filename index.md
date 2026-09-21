@@ -11,11 +11,11 @@ permalink: /
 
 ## 学习主线
 
-AI 全景 → 数学与编程 → 机器学习 → 神经网络 → NLP → Transformer → 预训练 → 后训练 → 推理 → 评测。
+原文主线：前置知识 → 核心原理 → 预训练 → 后训练 → 应用开发。
 
-RAG、多模态和 Agent 是可以并行深入的专题，不替代前面的基础。
+手册保留完整知识范围：M00 对应原文的 LLM 概念问答，M01 对应前置知识；机器学习基础、推理部署、评测和多模态等补充专题单列。Agent 可以并行学习，不替代 AI 基础。
 
-[开始阅读：AI、机器学习、深度学习与大模型的关系]({{ '/chapters/ai-foundations/' | relative_url }})
+[M00 · LLM 概念]({{ '/chapters/ai-foundations/' | relative_url }}) · [M01 · 前置知识]({{ '/chapters/math-and-programming/' | relative_url }})
 
 [完整知识目录]({{ '/roadmap/' | relative_url }}) · [原文覆盖与资料核验]({{ '/coverage/' | relative_url }})
 
@@ -23,8 +23,8 @@ RAG、多模态和 Agent 是可以并行深入的专题，不替代前面的基�
 
 | 模块 | 核心问题 | 正文状态 |
 | --- | --- | --- |
-| [M00 · AI 全景]({{ '/chapters/ai-foundations/' | relative_url }}) | AI、机器学习、深度学习与大模型是什么关系？ | 已成稿 |
-| [M01 · 数学与编程]({{ '/chapters/math-and-programming/' | relative_url }}) | 怎样用向量、概率、梯度和张量表达学习问题？ | 已成稿，基础实验已验证 |
+| [M00 · LLM 概念]({{ '/chapters/ai-foundations/' | relative_url }}) | 预训练模型、三类架构、Prefix LM 与 Causal LM 怎样区分？ | 已重写 |
+| [M01 · 前置知识]({{ '/chapters/math-and-programming/' | relative_url }}) | Python、PyTorch、线性代数、概率论和微积分分别要掌握什么？ | 已重写，配套实验已验证 |
 | M02 · 机器学习 | 模型如何从数据中学习，并在新数据上泛化？ | 规划中 |
 | M03 · 神经网络 | 网络、损失函数和反向传播怎样配合？ | 规划中 |
 | M04 · NLP 基础 | 文本怎样变成模型可以计算的表示？ | 规划中 |
