@@ -10,7 +10,8 @@ origin = config.fetch("url")
 site_host = URI(origin).host
 failures = []
 references = 0
-required_pages = %w[index.html roadmap/index.html coverage/index.html chapters/ai-foundations/index.html chapters/math-and-programming/index.html]
+required_pages = %w[index.html roadmap/index.html chapters/ai00-1/index.html]
+retired_pages = %w[coverage/index.html chapters/ai-foundations/index.html chapters/math-and-programming/index.html chapters/tokens-and-embeddings/index.html chapters/pretraining-and-sft/index.html chapters/agent-tool-loop/index.html]
 
 Dir.glob(".github/workflows/*.yml").each do |workflow_path|
   workflow = YAML.safe_load_file(workflow_path)
@@ -25,6 +26,10 @@ end
 
 required_pages.each do |relative|
   failures << "Missing required page: #{relative}" unless root.join(relative).file?
+end
+
+retired_pages.each do |relative|
+  failures << "Retired content still published: #{relative}" if root.join(relative).exist?
 end
 
 documents = root.glob("**/*.html").to_h do |path|
@@ -87,45 +92,29 @@ end
   failures << "Build-only file published: #{private_path}" if root.join(private_path).exist?
 end
 
-coverage = documents[root.join("coverage/index.html")]
-if coverage
-  entries = coverage.css("td").map(&:text)
-  expected = (1..45).map { |number| format("WX%02d", number) }
-  actual = entries.grep(/\AWX\d+\z/)
-  failures << "Source coverage entries are missing or duplicated" unless actual.sort == expected
-end
-
-intro_chapter = documents[root.join("chapters/ai-foundations/index.html")]
-if intro_chapter
-  sections = %w[llm-basics pretraining token-basics architectures pretrained-models attention-mask causal-prefix misconceptions interview references]
-  rendered_sections = intro_chapter.css("main h2[id]").map { |heading| heading["id"] }
-  failures << "M00 foundation sections are missing or out of order" unless rendered_sections == sections
-  failures << "Rejected delivery pilot remains in M00" if intro_chapter.at_css("#delivery-records, #delivery-candidates")
-  %w[causal-mask prefix-mask].each do |identifier|
-    rows = intro_chapter.css("##{identifier} tbody tr").map do |row|
-      row.css("td").drop(1).map { |cell| Integer(cell.text, exception: false) }
-    end
-    expected = Array.new(4) do |row_index|
-      Array.new(4) do |column_index|
-        visible = column_index <= row_index || (identifier == "prefix-mask" && row_index < 2 && column_index < 2)
-        visible ? 1 : 0
-      end
-    end
-    failures << "M00 #{identifier} contains incorrect attention visibility" unless rows == expected
+roadmap = documents[root.join("roadmap/index.html")]
+if roadmap
+  sections = %w[start stages ai-track agent-track interview sources gaps writing-order]
+  rendered_sections = roadmap.css("main h2[id]").map { |heading| heading["id"] }
+  failures << "Curriculum sections are missing or out of order" unless rendered_sections == sections
+  modules = (0..14).map { |number| format("ai%02d", number) } + (0..9).map { |number| format("ag%02d", number) }
+  module_headings = roadmap.css("main h3[id]")
+  failures << "AI and Agent curriculum modules are missing or duplicated" unless module_headings.map { |heading| heading["id"] } == modules
+  fields = %w[先修 核心 进阶 主读 验收]
+  module_headings.each do |heading|
+    list = heading.next_element
+    labels = list&.name == "ul" ? list.element_children.map { |item| item.text.strip[/\A[^：]+/] } : []
+    failures << "#{heading['id']}: module fields must be #{fields.join('/')}" unless labels == fields
   end
 end
 
-math_chapter = documents[root.join("chapters/math-and-programming/index.html")]
-if math_chapter
-  sections = %w[scope python tensors linear-algebra calculus probability information engineering lab exercises interview next references]
-  rendered_sections = math_chapter.css("main h2[id]").map { |heading| heading["id"] }
-  failures << "M01 sections are missing or rendered as code" unless rendered_sections == sections
-  failures << "M01 Python examples did not render as code" unless math_chapter.css("div.language-python pre code").length == 4
-  %w[linear-extensions gradient-check information-reference engineering-reference].each do |identifier|
-    disclosure = math_chapter.at_css("details##{identifier}")
-    unless disclosure && disclosure.at_css("summary") && !disclosure.key?("open")
-      failures << "M01 #{identifier} must remain optional and collapsed"
-    end
+article = documents[root.join("chapters/ai00-1/index.html")]
+if article
+  sections = %w[what-is-ai what-is-ml what-is-dl comparison pitfalls self-check sources]
+  failures << "AI00.1 sections are missing or out of order" unless article.css("main h2[id]").map { |heading| heading["id"] } == sections
+  answers = article.css("main details[id^='answer-']")
+  unless answers.length == 3 && answers.all? { |answer| answer.at_css("summary") && !answer.key?("open") }
+    failures << "AI00.1 needs three collapsed self-check answers"
   end
 end
 

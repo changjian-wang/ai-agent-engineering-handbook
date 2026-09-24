@@ -2,19 +2,19 @@
 
 以 AI 基础与大模型原理为主线，系统整理训练、推理、评测和应用知识；Agent 独立并行学习。内容同时服务理解、实践与面试，不以框架调用代替原理。
 
-站点地址：[AI 与 Agent 工程手册](https://changjian-wang.github.io/ai-agent-engineering-handbook/)（首次成功部署后生效）。
+线上地址：[AI 与 Agent 工程手册](https://changjian-wang.github.io/ai-agent-engineering-handbook/)。本轮目录重编仅在本地，未提交、推送或更新线上站点。
 
 ## 当前内容
 
-- [学习首页](index.md)：AI 优先的学习顺序和真实章节状态。
-- [完整知识目录](roadmap.md)：M00–M13，共 14 个模块及其验收目标。
-- [原文覆盖与资料核验](coverage.md)：重新核对 17 张图，登记 45 条来源映射、9 项补充范围与全文缺口；映射条目可能交叉。
-- [M00：LLM 概念](chapters/00-ai-foundations.md)：按原文的预训练模型、语言模型概率定义和 Prefix/Causal LM 整理，附模型对照与掩码表。
-- [M01：前置知识](chapters/01-math-and-programming.md)：按原文的 Python、PyTorch、线性代数、概率论、微积分展开；进阶补充单独折叠，保留 [CPU 实验与 11 个测试](examples/m01/math_basics.py)。
+- [学习首页](index.md)：从 AI 基本认识入手，区分主线与并行线。
+- [学习目录草案](roadmap.md)：AI00–AI14 与 AG00–AG09 的六个学习阶段、先修关系、核心与进阶范围、主读章节、面试主题索引及待补缺口。
+- [AI00.1 试写稿](chapters/ai00-1-ai-ml-dl.md)：AI、机器学习、表示学习与深度学习的关系，关键判断均标注 D2L、《Deep Learning》或 McCarthy 的出处，待审阅。
 
-M00、M01 已成稿，M02–M13 正文仍在规划中。没有取得微信标题所称的完整 48 页资料，不宣称逐页复现或已经完成全部知识整理。
+2026-09-23 经确认清空旧正文、三篇导读、旧覆盖表及配套实验与概念图，保留站点框架和 Git 历史。目前有目录草案和 AI00.1 试写稿，其余章节正文待写，不把规划或资料链接标记为已完成课程。
 
-正文以知识点和问题为单位，先给定义，再说明模型中的用途与关键区别。原文确定主题，论文和官方文档校正技术事实；不照搬截图、未经核验的绝对化说法或过期代码。
+清理前的 33 个源文件已备份至仓库外，并逐文件核对 SHA-256。备份包含未提交的三篇样稿，不包含可重新生成的依赖和缓存。恢复位置为 `C:\github\ai-agent-engineering-handbook-backups\before-content-reset-20260923-103015.zip`；恢复时应选择需要的文件，避免覆盖后续工作。该归档不进入 Git 或 Pages。2026-09-24 审查修订前的目录草案另存于 `C:\github\ai-agent-engineering-handbook-backups\curriculum-draft-before-review-20260924-145937`。
+
+学习顺序以先修关系为依据：《动手学深度学习》补基础，Happy-LLM 串起模型原理，EasyRL 补强化学习基础，Hello-Agents 为并行线，其他资料按主题补充。面试题附在相应知识点后。完成目录审阅后，才从 AI00 的小节开始编写正文。
 
 ## 本地构建与预览
 
@@ -43,15 +43,13 @@ docker run --rm -p 127.0.0.1:4174:4000 --mount "type=bind,source=$PWD,target=/si
 
 Docker 的 `--no-watch` 预览不会自动重建。修改正文后重新执行构建命令，再刷新页面；若 4174 端口被占用，换一个本地端口。
 
-概念图是本仓库原创 PNG。可在 Windows PowerShell 中运行 [生成脚本](scripts/render-diagram.ps1) 重新生成；日常构建直接使用已提交的图片，不需要 Windows 图形库。
-
 ## 发布
 
-M01 实验在 Python 3.11 虚拟环境中安装 [固定直接依赖](examples/m01/requirements.txt)，通过 `python examples/m01/math_basics.py` 运行。Windows/Linux 的 CPU 安装命令、真实验证记录与数据范围见 [M01 正文](chapters/01-math-and-programming.md)。实验源码、虚拟环境和缓存不会进入 Pages 产物。
+目录阶段没有配套实验任务；旧实验已经移除。后续新增可运行示例时，应同时恢复对应 CI 测试门禁，再声明实验已验证。
 
 数学章节通过 `math: true` 启用 KaTeX 0.18.7，使用带完整性校验的固定版本 CDN 资源；其他页面不加载。CDN 不可访问时公式可能保留 TeX 文本，正文与实验本身不依赖该网络服务。
 
-[发布工作流](.github/workflows/deploy-pages.yml)在 Pull Request 上运行 CPU 实验、构建和校验；推送到 `main` 或在 `main` 手动运行时，实验与站点校验均通过后才部署。
+[发布工作流](.github/workflows/deploy-pages.yml)在 Pull Request 上运行构建和站点校验；推送到 `main` 或在 `main` 手动运行时，构建及校验通过后才部署。当前没有执行提交或发布。
 
 首次发布需将仓库 Settings → Pages → Source 设为 **GitHub Actions**。只上传生成的站点，不上传依赖、脚本或仓库配置。线上 URL 的项目路径由 [站点配置](_config.yml)中的 `baseurl` 决定。
 
@@ -59,12 +57,13 @@ GitHub Skills 原课程流程保留作历史参考，但已移除自动触发并
 
 ## 内容维护
 
-1. 先把知识点加入覆盖表和目录，明确来自原文还是本手册补充。
-2. 新章节放在 `chapters/`，使用 `layout`、`title`、`description`、`permalink`、`chapter`、`last_verified` 元数据。
-3. 正文包括核心问题、先修知识、原理、例子、边界、误区、自测与参考答案。
-4. 关键判断优先查论文、官方文档或官方实现；记录论文版本或页面核验日期。
-5. 未运行的实验、未核实的结论和规划章节明确标记，不编造服务响应、评测数字或完成状态。
-6. 构建、链接、图片及桌面/手机阅读检查通过后，再更新章节状态并发布。
+1. 先审阅目录和资料映射，再确定每篇小节的范围；不要直接批量生成正文。
+2. 按先修关系安排内容；进阶推导、框架 API 与生产优化不挤进入门解释。
+3. 正文包含核心问题、先修、解释、例子、边界、自测及来源；每个主题只选一份主读资料。
+4. 关键判断查论文、官方文档或实现，记录版本和核验日期；未知内容先列为资料缺口。
+5. 未运行实验与未完成内容明确标记，不编造结果或完成状态。
+6. 校验器在目录阶段要求两页、八个目录分区和 25 个模块锚点，检查每个模块按先修、核心、进阶、主读、验收五项编写，并拒绝六个已撤下页面残留；新增章节时同步更新规则和测试。
+7. 构建、链接及桌面/手机阅读检查通过后，再考虑提交与发布。
 
 仓库原有 [LICENSE](LICENSE) 保留。外部论文、文档及原文图片仍遵守各自许可，引用链接不等于获得整套转载授权。
 

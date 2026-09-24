@@ -173,8 +173,7 @@ main { min-width: 0; }
   .masthead-inner, .reading-layout, .site-footer { width: calc(100% - 2rem); }
   .masthead-inner { padding-block: 1rem; }
   .page-navigation ol { columns: 1; }
-  .table-scroll table { min-width: 34rem; }
-  .table-scroll table.intro-table { min-width: 0; }
+  .table-scroll table:has(tr > :nth-child(4)) { min-width: 34rem; }
   .prose h2 { margin-top: 2rem; }
 }
 
